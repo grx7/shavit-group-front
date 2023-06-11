@@ -1,0 +1,234 @@
+@import './fonts';
+@import './null';
+@import './var';
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+
+    position: relative;
+
+    overflow: hidden;
+}
+
+[class*="__container"] {
+    max-width: 1412px;
+    padding: 0 30px;
+
+    @media (max-width: 480px) {
+        padding-left: calc(25px + (30 - 25) * ( (100vw - 320px) / (480 - 320)));
+        padding-right: calc(25px + (30 - 25) * ( (100vw - 320px) / (480 - 320)));
+        max-width: calc(1402px + (1412 - 1402) * ( (100vw - 320px) / (480 - 320)));
+    }
+    margin: 0 auto;
+}
+
+a, button, .select__header, .select__item, .swiper-button-prev, .swiper-button-next, .spoiler__header, .quiz-cards__card, .quiz-plans__card {
+    -webkit-tap-highlight-color: transparent;
+}
+
+input[type="number"] {
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+        /* display: none; <- Crashes Chrome on hover */
+        -webkit-appearance: none;
+        margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+    }
+}
+
+body {
+    font-family: Gilroy;
+    font-weight: 400;
+}
+
+.main {
+    flex: 1 1 auto;
+    //min-height: 1200px;
+}
+
+
+
+.title {
+    font-weight: 600;
+    font-size: 40px;
+    line-height: 120%;
+    color: $grey;
+}
+.paragraph {
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 125%;
+    color: $grey;
+}
+.button-dark, .button-light {
+    padding: 0 100px;
+    @media (max-width: 1500px) {
+        padding-left: calc(20px + (100 - 20) * ( (100vw - 320px) / (1500 - 320)));
+        padding-right: calc(20px + (100 - 20) * ( (100vw - 320px) / (1500 - 320)));
+    }
+    height: 70px;
+    @media (max-width: 1200px) {
+        height: calc(64px + (70 - 64) * ( (100vw - 320px) / (1200 - 320)));
+        font-size: calc(20px + (24 - 20) * ( (100vw - 320px) / (1200 - 320)));
+    }
+    font-weight: 600;
+    font-size: 24px;
+    border-radius: 7px;
+
+    transition: background-color ease-in-out $animSpeed;
+}
+
+.button-dark {
+    background-color: $dark-blue;
+    color: $white;
+
+    &:hover {
+        background-color: #2a4a70;
+    }
+}
+.button-light {
+    background-color: $white;
+    color: $dark-blue;
+
+    &:hover {
+        background-color: #f7f7f7;
+    }
+}
+.stroke-button {
+    height: 70px;
+    border-radius: 7px;
+    border: 1px solid $dark-blue;
+
+    @media (max-width: 991.98px) {
+        height: calc(60px + (70 - 60) * ( (100vw - 320px) / (991.98 - 320)));
+        font-size: calc(21px + (24 - 21) * ( (100vw - 320px) / (991.98 - 320)));
+    }
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 20px;
+    background-color: transparent;
+
+    font-weight: 600;
+    font-size: 24px;
+    color: $dark-blue;
+
+    transition: color ease-in-out $animSpeed, background-color ease-in-out $animSpeed;
+
+    path {
+        transition: fill ease-in-out $animSpeed, stroke ease-in-out $animSpeed;
+    }
+
+    &:hover {
+        background-color: $dark-blue;
+        color: $white;
+
+        path {
+            fill: $white;
+        }
+    }
+}
+
+.select {
+    position: relative;
+
+    // .select__header
+
+    &__header {
+        padding: 0 34px;
+        min-width: 200px;
+        height: 60px;
+
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 4px;
+        border-radius: 4px;
+        border: 1px solid #8E8E8E;
+
+        cursor: pointer;
+
+        @media (max-width: 480px) {
+            justify-content: center;
+        }
+    }
+
+    // .select__current
+
+    &__current {
+        font-weight: 400;
+        font-size: 24px;
+        @media (max-width: 991.98px) {
+            font-size: calc(18px + (24 - 18) * ( (100vw - 320px) / (991.98 - 320)));
+        }
+        color: $light-grey;
+    }
+
+    // .select__icon
+
+    &__icon {
+        width: 16px;
+        transition: transform ease-in-out $animSpeed;
+        transform: rotate(180deg);
+    }
+
+    // .select__body
+
+    &__body {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        pointer-events: none;
+        opacity: 0;
+        transform: translateY(-10px);
+        transition: transform ease-in-out $animSpeed, opacity ease-in-out $animSpeed;
+
+        display: flex;
+        padding: 6px 0;
+        flex-direction: column;
+        border-radius: 4px;
+        border: 1px solid #8E8E8E;
+
+        background-color: #fff;
+    }
+
+    // .select__item
+
+    &__item {
+        padding: 8px 18px;
+        cursor: pointer;
+        font-weight: 400;
+        font-size: 24px;
+        color: $light-grey;
+
+        @media (max-width: 991.98px) {
+            font-size: calc(18px + (24 - 18) * ( (100vw - 320px) / (991.98 - 320)));
+        }
+
+        @media (max-width: 480px) {
+            text-align: center;
+        }
+    }
+}
+
+.select._opened {
+    .select__body {
+        opacity: 1;
+        transform: translateY(1px);
+        pointer-events: all;
+    }
+    .select__icon {
+        transform: rotate(0deg);
+    }
+}
+
+.sticky-block {
+    @media (min-width: 767.98px) {
+        position: sticky;
+        top: 0px;    
+        transition: top ease-in-out $animSpeed;
+    }
+}
